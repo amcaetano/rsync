@@ -6,12 +6,12 @@ echo "INICIANDO PROCESSO DE SINCRONIZAÇÃO:"
 
 date 
 
-echo "Processo de sincronização e cópia de arquivos iniciado no servidor BROLY, em:" >> /home/adm01/dados1/backup.log
+echo "Processo de sincronização e cópia de arquivos iniciado no servidor BROLY, em:" >> /home/user/backup.log
 
 echo ""
 echo ""
 
-date >> /home/adm01/dados1/backup.log
+date >> /home/user/nas/backup.log
 
 echo ""
 echo ""
@@ -26,82 +26,56 @@ echo ""
 echo ""
 
 
-#--------------------------- CÓPIA DE SEGURANÇA DO SHELL SCRIPT DE BACKUP -------------------------#
-
-sudo rsync -avh --info=progress2 /usr/bin/bkp_nas.sh /home/adm01/dados1/Script\ Bkp\ NAS
 
 
 #--------------------------- CÓPIA DE SEGURANÇA DO ARQUIVO DE CONFIGURAÇÃO I3STATUS -------------------------#
 
-sudo cp /etc/i3status.conf /home/adm01/dados1/bkp_satoshi/bkp_config/i3status
+sudo cp /etc/i3status.conf /home/user/nas/bkp_config/i3status
 
 #--------------------------- CÓPIA DE SEGURANÇA DO ARQUIVO DE CONFIGURAÇÃO I3WM  -------------------------#
 
-sudo cp /home/adm01/.config/i3/config /home/adm01/dados1/bkp_satoshi/bkp_config/i3wm
+sudo cp /home/user/.config/i3/config /home/user/nas/bkp_config/i3wm
 
 #--------------------------- CÓPIA DE SEGURANÇA DO ARQUIVO DE CONFIGURAÇÃO LIGHTDM E LIGHTDM GTK GREETER -------------------------#
 
-sudo cp /etc/lightdm/lightdm.conf /home/adm01/dados1/bkp_satoshi/bkp_config/lightdm
+sudo cp /etc/lightdm/lightdm.conf /home/user/nas/bkp_config/lightdm
 
-sudo cp /etc/lightdm/lightdm-gtk-greeter.conf /home/adm01/dados1/bkp_satoshi/bkp_config/lightdm
+sudo cp /etc/lightdm/lightdm-gtk-greeter.conf /home/user/nas/bkp_config/lightdm
 
 #--------------------------- CÓPIA DE SEGURANÇA DO ARQUIVO DE CONFIGURAÇÃO DE INTERFACES DE REDE -------------------------#
 
-sudo cp /etc/network/interfaces /home/adm01/dados1/bkp_satoshi/bkp_config/network
+sudo cp /etc/network/interfaces /home//user/nas/bkp_config/network
 
 #--------------------------- CÓPIA DE SEGURANÇA DO ARQUIVO DE CONFIGURAÇÃO SHELL ZSH -------------------------#
 
-sudo cp /home/adm01/.zshrc /home/adm01/dados1/bkp_satoshi/bkp_config/zsh
+sudo cp /home/user/.zshrc /home/user/nas/bkp_config/zsh
 
 #--------------------------------- CÓPIA DE SEGURANÇA DO ARQUIVO DE CONFIGURAÇÃO DOS SERVIDORES DE DNS -----------------------#
 
-sudo cp /etc/resolv.conf /home/adm01/dados1/bkp_satoshi/bkp_config/dns_server
+sudo cp /etc/resolv.conf /home/user/nas/bkp_config/dns_server
 
 
 #--------------------------- CÓPIA DE SEGURANÇA DO DIRETORIO DE CONFIGURAÇÃO DO VIRTUALBOX -------------------------#
 
-sudo rsync -avh --info=progress2 /home/adm01/.config/VirtualBox /home/adm01/dados1/bkp_satoshi/labs
+sudo rsync -avh --info=progress2 /home/user/.config/VirtualBox /home/user/nas
 
 
-#--------------------------------------- SINCRONIZAÇÃO DE ARQUIVOS DO DIRETORIO /HOME COM DADOS1 ---------------------------------------#
+#--------------------------------------- SINCRONIZAÇÃO DE ARQUIVOS DO DIRETORIO /HOME PARA STORAGE NAS  ---------------------------------------#
 
-sudo rsync -avh --info=progress2 /home/adm01/Documentos /home/adm01/dados1/bkp_satoshi
-sudo rsync -avh --info=progress2 /home/adm01/Imagens /home/adm01/dados1/bkp_satoshi
-sudo rsync -avh --info=progress2 /home/adm01/Vídeos /home/adm01/dados1/bkp_satoshi
-sudo rsync -avh --info=progress2 /home/adm01/Músicas /home/adm01/dados1/bkp_satoshi
-sudo rsync -avh --info=progress2 /home/adm01/Batocera  /home/adm01/dados1/bkp_satoshi
-sudo rsync -avh --info=progress2 /home/adm01/labs /home/adm01/dados1/bkp_satoshi
+sudo rsync -avh --info=progress2 /home /home/user/nas
 
 
-#--------------------------------------- SINCRONIZAÇÃO DE ARQUIVOS DO DIRETORIO /HOME COM DADOS2 ---------------------------------------#
+#-----------------------------------------  ENVIO DE DADOS DE LOG PARA O NAS  ---------------------------------#
 
-sudo rsync -avh --info=progress2 /home/adm01/dados1/bkp_satoshi /home/adm01/dados2
-sudo rsync -avh --info=progress2 /home/adm01/dados1/bkp_android /home/adm01/dados2
-sudo rsync -avh --info=progress2 /home/adm01/dados1/bkp_broly /home/adm01/dados2
-sudo rsync -avh --info=progress2 /home/adm01/dados1/bkp_locmaq /home/adm01/dados2
-sudo rsync -avh --info=progress2 /home/adm01/dados1/backup.log /home/adm01/dados2
+echo "Backup Realizado com Sucesso em:" >> /home/user/nas/backup.log
 
-
-#--------------------------------------- SINCRONIZAÇÃO DE ARQUIVOS DO DIRETORIO /HOME COM DADOS3 ---------------------------------------#
-
-sudo rsync -avh --info=progress2 /home/adm01/dados1/bkp_satoshi /home/adm01/dados3
-sudo rsync -avh --info=progress2 /home/adm01/dados1/bkp_android /home/adm01/dados3
-sudo rsync -avh --info=progress2 /home/adm01/dados1/bkp_broly /home/adm01/dados3
-sudo rsync -avh --info=progress2 /home/adm01/dados1/bkp_locmaq /home/adm01/dados3
-sudo rsync -avh --info=progress2 /home/adm01/dados1/backup.log /home/adm01/dados3
-
-
-#-----------------------------------------  ENVIO DE DADOS DE LOG PARA O NAS BROLY ---------------------------------#
-
-echo "Backup Realizado com Sucesso em:" >> /home/adm01/dados1/backup.log
-
-date >> /home/adm01/dados1/backup.log
+date >> /home/user/nas/backup.log
 echo "" 
 echo "" 
 
 #------------------------------------- MENSAGEM FINAL VALIDANDO OS PROCESSOS DO SHELL SCRIPT ----------------------------------#
 
-echo "ARQUIVOS TOTALMENTE SINCRONIZADOS COM SERVIDOR NAS BROLY!!" 
+echo "ARQUIVOS TOTALMENTE SINCRONIZADOS COM SERVIDOR NAS !!" 
 
 
 
@@ -118,7 +92,7 @@ echo "ARQUIVOS TOTALMENTE SINCRONIZADOS COM SERVIDOR NAS BROLY!!"
 
 # 25 de Maio de 2024 - Antonio Caetano iniciou o desenvolvimento deste script.
 
-# Atualizado no dia 10/08/2025 às 03:39
+# Atualizado no dia 24/08/2025 às 22:09
 
 # 04- LICENÇA:
 
